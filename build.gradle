@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+def name = "AStarVisualizer"
+
+def mainClass = 'halive.astarvisual.AStarVisualizer'
+def cPath = '.'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': name,
+                'Implementation-Version': version,
+                'Class-Path': cPath,
+                'Main-Class': mainClass
+    }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
