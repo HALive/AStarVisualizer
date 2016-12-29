@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Tile {
+
     private int width = AStarVisualizer.SQUARE_SIZE;
     private int height = AStarVisualizer.SQUARE_SIZE;
 
@@ -26,20 +27,20 @@ public class Tile {
 
     private GridRenderCanvas canvas;
 
-    private boolean aStarDataSet=false;
+    private boolean aStarDataSet = false;
 
     public Tile(int x, int y, NodeState state, GridRenderCanvas canvas) {
         this.x = x;
         this.y = y;
-        this.position = new Point(x/width,y/height);
+        this.position = new Point(x / width, y / height);
         this.state = state;
         this.canvas = canvas;
     }
 
     public void render(Graphics g, float xScale, float yScale) {
         g.setColor(state.renderColor);
-        g.fillRect((int) (x*xScale),(int) (y*yScale),(int) (width*xScale),(int) (height*yScale));
-        if(AStarVisualizer.DRAW_GRID) {
+        g.fillRect((int) (x * xScale), (int) (y * yScale), (int) (width * xScale), (int) (height * yScale));
+        if (AStarVisualizer.DRAW_GRID) {
             g.setColor(state.borderColor);
             g.drawRect((int) ((x) * xScale), (int) ((y) * yScale), (int) ((width) * xScale), (int) ((height) * yScale));
         }
@@ -66,24 +67,24 @@ public class Tile {
     }
 
     public void clearAStarValues() {
-        setAStarValues(null, null,0);
+        setAStarValues(null, null, 0);
         aStarDataSet = false;
-    }
-
-    public void setPrior(Tile prior) {
-        this.prior = prior;
     }
 
     public Tile getPrior() {
         return prior;
     }
 
-    public void setG(double g) {
-        this.g = g;
+    public void setPrior(Tile prior) {
+        this.prior = prior;
     }
 
     public double getG() {
         return g;
+    }
+
+    public void setG(double g) {
+        this.g = g;
     }
 
     public double getH() {
@@ -91,7 +92,7 @@ public class Tile {
     }
 
     public double getF() {
-        return g+h;
+        return g + h;
     }
 
     public boolean isEndNode() {
@@ -102,12 +103,12 @@ public class Tile {
         return canvas.getMode().calculateH(position, endPos);
     }
 
-    public void setState(NodeState state) {
-        this.state = state;
-    }
-
     public NodeState getState() {
         return state;
+    }
+
+    public void setState(NodeState state) {
+        this.state = state;
     }
 
     public int getX() {
@@ -141,7 +142,7 @@ public class Tile {
 
         NodeState(Color renderColor, String name) {
             this.renderColor = renderColor;
-            borderColor = new Color(renderColor.getRGB()^0xFFFFFF);
+            borderColor = new Color(renderColor.getRGB() ^ 0xFFFFFF);
             this.name = name;
         }
 

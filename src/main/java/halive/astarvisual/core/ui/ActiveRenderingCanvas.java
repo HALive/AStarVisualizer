@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 public abstract class ActiveRenderingCanvas extends Canvas implements Runnable {
+
     protected Container parent;
     protected Thread renderThread = new Thread(this, "Rendering Canvas");
 
@@ -38,19 +39,21 @@ public abstract class ActiveRenderingCanvas extends Canvas implements Runnable {
             g.fillRect(0, 0, getSize().width, getSize().height);
             draw(g);
             if (debug) {
-                double fps = 1/((System.currentTimeMillis() - lastTime) / 1000D);
-                String fpsDisp = (Math.round(fps*100)/100D)+" FPS";
-                int textW = g.getFontMetrics(new Font("Arial",Font.BOLD,12)).stringWidth(fpsDisp);
+                double fps = 1 / ((System.currentTimeMillis() - lastTime) / 1000D);
+                String fpsDisp = (Math.round(fps * 100) / 100D) + " FPS";
+                int textW = g.getFontMetrics(new Font("Arial", Font.BOLD, 12)).stringWidth(fpsDisp);
                 g.setColor(Color.BLACK);
-                g.drawString(fpsDisp, getWidth()-(textW+30), 20);
+                g.drawString(fpsDisp, getWidth() - (textW + 30), 20);
                 lastTime = System.currentTimeMillis();
             }
-            if (!buf.contentsLost())
+            if (!buf.contentsLost()) {
                 buf.show();
+            }
             Thread.yield();
             try {
                 Thread.sleep(5);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
     }
 
